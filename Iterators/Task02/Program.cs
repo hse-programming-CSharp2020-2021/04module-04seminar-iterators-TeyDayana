@@ -35,6 +35,10 @@ namespace Task02
 
         public IteratorSample(string[] values, int start)
         {
+            foreach (string el in values)
+                if (!int.TryParse(el, out _))
+                    throw new ArgumentException();
+
             this.values = values;
             this.start = start;
         }
