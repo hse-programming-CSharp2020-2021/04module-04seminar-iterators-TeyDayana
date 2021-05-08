@@ -28,17 +28,33 @@ using System.Threading.Tasks;
  */
 namespace Task02
 {
-    class IteratorSample : IEnumerable<string> // НЕ МЕНЯТЬ
+    class IteratorSample
     {
         string[] values;
         int start;
 
         public IteratorSample(string[] values, int start)
         {
+            foreach (string el in values)
+                if (!int.TryParse(el, out _))
+                    throw new ArgumentException();
+
             this.values = values;
             this.start = start;
+
+
         }
 
+        public IEnumerator<string> GetEnumerator()
+        {
+            List<string> vals = new List<string>();
+            for (int el = start - 1; el < values.Length; ++el)
+                vals.Add(values[el]);
+            for (int el = 0; el < start - 1; ++el)
+                vals.Add(values[el]);
+            foreach (string val in vals)
+                yield return val;
+        }
     }
 
     class Program
@@ -47,8 +63,9 @@ namespace Task02
         {
             try
             {
-                int startingIndex = 
-                string[] values = 
+                int startingIndex;
+                int.TryParse(Console.ReadLine(), out startingIndex);
+                string[] values = Console.ReadLine().Split();
 
                 foreach (string ob in new IteratorSample(values, startingIndex))
                     Console.Write(ob + " ");
