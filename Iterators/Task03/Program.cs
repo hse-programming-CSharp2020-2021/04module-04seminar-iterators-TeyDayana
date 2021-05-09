@@ -37,14 +37,18 @@ namespace Task03
         {
             try
             {
-                int N =
+                int N = int.Parse(Console.ReadLine());
                 Person[] people = new Person[N];
-
+                for (int pers = 0; pers < N; ++pers)
+                {
+                    string[] info = Console.ReadLine().Split();
+                    people[pers] = new Person(info[0], info[1]);
+                }
                 People peopleList = new People(people);
 
                 foreach (Person p in peopleList)
                     Console.WriteLine(p);
-
+                Console.WriteLine();
                 foreach (Person p in peopleList.GetPeople)
                     Console.WriteLine(p);
             }
@@ -66,7 +70,7 @@ namespace Task03
             this.lastName = lastName;
         }
 
-    
+        public override string ToString() => firstName + " " + lastName[0] + ".";
     }
 
 
@@ -74,43 +78,64 @@ namespace Task03
     {
         private Person[] _people;
         public Person[] GetPeople
-        {
-            get {
-                return _people;
-            }
-        }
-        
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+        { get => _people; }
 
-        public PeopleEnum GetEnumerator()
-        {
-            return new PeopleEnum(_people);
-        }
+        public People(Person[] people)
+        { _people = people; }
+        
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+        public PeopleEnum GetEnumerator() => new PeopleEnum(_people);
     }
-    
+
     public class PeopleEnum : IEnumerator
     {
         public Person[] _people;
+        int position = -1;
 
-      
+        public PeopleEnum(Person[] people)
+        {
+            int n = people.Length;
+            Person[] peopleNew = new Person[n];
+            for (int p = 0; p < n; ++p)
+                peopleNew[p] = people[p];
+
+            Array.Sort(peopleNew, (x, y) =>
+            {
+                string xInfo = x.ToString();
+                string yInfo = y.ToString();
+
+                if (xInfo.Length < yInfo.Length)
+                    for (int sp = 0; sp < yInfo.Length - xInfo.Length; ++sp)
+                        xInfo += " ";
+
+                if (yInfo.Length < xInfo.Length)
+                    for (int sp = 0; sp < xInfo.Length - yInfo.Length; ++sp)
+                        yInfo += " ";
+
+                for (int s = 0; s < xInfo.Length; ++s)
+                {
+                    if (xInfo[s] > yInfo[s]) return 1;
+                    if (xInfo[s] < yInfo[s]) return -1;
+                }
+
+                return 0;
+            });
+            _people = peopleNew;
+        }
 
         public bool MoveNext()
         {
-            
+            if (position < _people.Length - 1)
+            { ++position; return true; }
+
+            return false;
         }
 
         public void Reset()
-        {
-            
-        }
-       
+        { position = -1; }
 
-        public Person Current
-        {
-            
-        }
+        public object Current
+        { get => _people[position]; }
     }
 }
