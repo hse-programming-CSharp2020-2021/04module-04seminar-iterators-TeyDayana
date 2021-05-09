@@ -73,7 +73,7 @@ namespace Task03
             this.lastName = lastName;
         }
 
-        public override string ToString() => firstName + " " + lastName[0] + ".";
+        public override string ToString() => firstName + " " + char.ToUpper(lastName[0]) + ".";
     }
 
 
