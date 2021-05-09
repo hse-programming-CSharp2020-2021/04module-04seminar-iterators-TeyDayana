@@ -37,11 +37,14 @@ namespace Task03
         {
             try
             {
-                int N = int.Parse(Console.ReadLine());
+                int N;
+                if (!int.TryParse(Console.ReadLine(), out N))
+                    throw new ArgumentException();
                 Person[] people = new Person[N];
                 for (int pers = 0; pers < N; ++pers)
                 {
                     string[] info = Console.ReadLine().Split();
+                    if (info.Length < 2) throw new ArgumentException();
                     people[pers] = new Person(info[0], info[1]);
                 }
                 People peopleList = new People(people);
@@ -82,7 +85,7 @@ namespace Task03
 
         public People(Person[] people)
         { _people = people; }
-        
+
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         public PeopleEnum GetEnumerator() => new PeopleEnum(_people);
