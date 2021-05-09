@@ -56,9 +56,9 @@ namespace Task03
                     Console.WriteLine(p);
             }
             catch (ArgumentException)
-            {
-                Console.Write("error");
-            }
+            { Console.Write("error"); }
+            catch (Exception)
+            { Console.Write("error"); }
         }
     }
 
