@@ -35,6 +35,7 @@ namespace Task04
 
                 IterateThroughEnumeratorWithoutUsingForeach(enumerator);
                 Console.WriteLine();
+                enumerator.Reset();
                 IterateThroughEnumeratorWithoutUsingForeach(enumerator);
             }
             catch (ArgumentException)
@@ -46,10 +47,6 @@ namespace Task04
 
         static void IterateThroughEnumeratorWithoutUsingForeach(IEnumerator enumerator)
         {
-            while (enumerator.MoveNext())
-                Console.Write(enumerator.Current + " ");
-            Console.WriteLine();
-            enumerator.Reset();
             while (enumerator.MoveNext())
                 Console.Write(enumerator.Current + " ");
         }
