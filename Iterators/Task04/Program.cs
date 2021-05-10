@@ -33,10 +33,10 @@ namespace Task04
                 MyInts myInts = new MyInts();
                 IEnumerator enumerator = myInts.MyEnumerator(value);
 
-                IterateThroughEnumeratorWithoutUsingForeach(enumerator);
+                IterateThroughEnumeratorWithoutUsingForeach(enumerator, value);
                 Console.WriteLine();
                 enumerator.Reset();
-                IterateThroughEnumeratorWithoutUsingForeach(enumerator);
+                IterateThroughEnumeratorWithoutUsingForeach(enumerator, value);
                 Console.WriteLine();
             }
             catch (ArgumentException)
@@ -46,10 +46,16 @@ namespace Task04
             
         }
 
-        static void IterateThroughEnumeratorWithoutUsingForeach(IEnumerator enumerator)
+        static void IterateThroughEnumeratorWithoutUsingForeach(IEnumerator enumerator, int value)
         {
+            int num = 0;
             while (enumerator.MoveNext())
-                Console.Write(enumerator.Current + " ");
+            {
+                Console.Write(enumerator.Current);
+                ++num;
+                if (num != value)
+                    Console.Write(" ");
+            }
         }
     }
 
