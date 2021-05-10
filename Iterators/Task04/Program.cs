@@ -37,6 +37,7 @@ namespace Task04
                 Console.WriteLine();
                 enumerator.Reset();
                 IterateThroughEnumeratorWithoutUsingForeach(enumerator);
+                Console.WriteLine();
             }
             catch (ArgumentException)
             {
