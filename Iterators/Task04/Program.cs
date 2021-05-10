@@ -28,7 +28,7 @@ namespace Task04
             try
             {
                 int value;
-                if (!int.TryParse(Console.ReadLine(), out value) || value == 0)
+                if (!int.TryParse(Console.ReadLine(), out value) || value <= 0)
                     throw new ArgumentException();
                 MyInts myInts = new MyInts();
                 IEnumerator enumerator = myInts.MyEnumerator(value);
